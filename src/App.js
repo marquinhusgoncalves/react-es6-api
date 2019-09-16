@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Loading from './Loading';
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class App extends Component {
               <p>{user.email}</p>
             </div>
           ))
-          : 'Loading'}
+          : <Loading message="Loading..."/>}
       </div>
     )
   };

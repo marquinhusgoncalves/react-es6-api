@@ -9,6 +9,8 @@ class App extends Component {
       users: [],
       loading: false
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   getUsers() {
@@ -17,9 +19,14 @@ class App extends Component {
     })
     axios('https://api.randomuser.me/?nat=US&results=5')
     .then(response => this.setState({
-      users: response.data.results,
+      users: [...this.state.users, ...response.data.results],
       loading: false
     }))
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.getUsers();
   }
 
   componentWillMount() {
@@ -34,6 +41,10 @@ class App extends Component {
             <div>
               <h3>{user.name.first}</h3>
               <p>{user.email}</p>
+              <hr/>
+              <form onSubmit={this.handleSubmit}>
+                <input type="submit" value="load users"></input>
+              </form>
             </div>
           ))
           : <Loading message="Loading..."/>}
